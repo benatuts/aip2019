@@ -1,0 +1,13 @@
+{
+  "name": "orm",
+  "version": "1.0.0",
+  "scripts": {
+    "serve-native": "node native.js",
+    "serve-orm": "node orm.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "sequelize": "^5.12.3",
+    "sqlite3": "^4.0.9"
+  }
+}
