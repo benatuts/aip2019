@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Counter</title>
+        <script type="application/javascript">
+            // ------------------------------------------------------
+            // A very simple playground for experimenting with fetch
+            // ------------------------------------------------------
+
+            // You can modify the code in here directly.
+            // You can also use the JavaScript console in your browser.
+
+            // Render a value into the #count element
+            function updateCount(value) {
+                let div = document.getElementById('count');
+                div.textContent = '' + value;
+            }
+
+            // Retreive the current value of the counter from the server
+            // and display the result in #count
+            async function check() {
+                // This creates some flicker on fast connections,
+                // it could be rewritten to only appear if the server is slow.
+                updateCount('Contacting server...');
+                
+                // Contact the server
+                // Note: exceptions are not (yet) handled
+                let result = await fetch('/count');
+                // Decode the JSON response
+                let json = await result.json();
+                
+                // Display the result
+                updateCount(json.count);
+            }
+
+            // Update the counter on the server by the supplied amount
+            // and display the result in #count
+            async function step(direction) {
+                updateCount('Contacting server...');
+
+                // Contact the server
+                // POSTs a JSON payload and expects a JSON response
+                // Note: exceptions are not (yet) handled
+                let result = await fetch(
+                    '/step',
+                    {
+                        method: 'POST',
+                        headers: {'Content-type': 'application/json'},
+                        body: JSON.stringify({direction})
+                    }
+                );
+                // Decode the JSON response
+                let json = await result.json();
+
+                // Display the result
+                updateCount(json.count);
+            }
+
+            // Increase by one
+            async function increment() {
+                step(1);
+            }
+
+            // Decrease by one
+            async function decrement() {
+                step(-1);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="count">Counter not yet retrieved</div>
+        <button onclick="check()">Retrieve Counter</button>
+        <button onclick="increment()">Increment Counter</button>
+        <button onclick="decrement()">Decrement Counter</button>
+    </body>
+</html>
