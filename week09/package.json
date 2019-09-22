@@ -1,0 +1,16 @@
+{
+  "name": "week09",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "mongo": "mkdir -p ./data && mongod --dbpath ./data",
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1"
+  }
+}
