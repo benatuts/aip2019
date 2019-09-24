@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "mongo": "mkdir -p ./data && mongod --dbpath ./data",
+    "mongo": "mkdir -p ./data && mongod --dbpath ./data"
   },
   "author": "",
   "license": "ISC",

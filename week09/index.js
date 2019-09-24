@@ -22,11 +22,18 @@ const Student = mongoose.model('Student', {
     await new Student({studentId: '4', counter: 0, name: 'Dave'}).save();
 })();
 
+app.get('/', (req, res) => {
+    res.send(`<!DOCTYPE html>
+              <title>Sample Server</title>
+              <p>Please visit <a href="/a/1">/a/1</a> (blank page), <a href="/b/1">/b/1</a>, <a href="/c/1">/c/1</a> or <a href="/d/1">/d/1</a></p>`
+    );
+});
+
 // ------------------------------------------------
 // GET /a/:id
 // Simple method overhead
 // ------------------------------------------------
-app.use('/a/:id', async (req, res) => {
+app.get('/a/:id', async (req, res) => {
     // do nothing
     res.send('');
 });
@@ -35,7 +42,7 @@ app.use('/a/:id', async (req, res) => {
 // GET /b/:id
 // Method overhead plus generating JSON response
 // ------------------------------------------------
-app.use('/b/:id', async (req, res) => {
+app.get('/b/:id', async (req, res) => {
     let id = req.params.id;
     res.json({studentId: id, name: 'Sample Name'})
 });
@@ -46,7 +53,7 @@ app.use('/b/:id', async (req, res) => {
 //
 // Note: this code does not catch database errors
 // ------------------------------------------------
-app.use('/c/:id', async (req, res) => {
+app.get('/c/:id', async (req, res) => {
     let result = await Student.find({studentId: req.params.id});
     if (result.length > 0) {
         let found = result[0];
@@ -61,7 +68,7 @@ app.use('/c/:id', async (req, res) => {
 //
 // Note: this code does not catch database errors
 // ------------------------------------------------
-app.use('/d/:id', async (req, res) => {
+app.get('/d/:id', async (req, res) => {
     let result = await Student.find({studentId: req.params.id});
     if (result.length > 0) {
         let found = result[0];
